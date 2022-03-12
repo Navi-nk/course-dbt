@@ -1,3 +1,10 @@
+WITH orders_source AS (
+    SELECT 
+        *
+    FROM 
+        {{ source('postgres_source', 'orders') }}
+)
+
 SELECT
     order_id AS order_guid,
     user_id AS user_guid,
@@ -11,6 +18,6 @@ SELECT
     shipping_service,
     estimated_delivery_at,
     delivered_at,
-    status
+    status AS order_status
 FROM    
-    {{ source('postgres_source', 'orders') }}
+    orders_source
