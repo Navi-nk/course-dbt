@@ -14,7 +14,7 @@ SELECT
     order_cost,
     shipping_cost,
     order_total,
-    tracking_id,
+    tracking_id AS tracking_guid,
     shipping_service,
     estimated_delivery_at,
     delivered_at,
