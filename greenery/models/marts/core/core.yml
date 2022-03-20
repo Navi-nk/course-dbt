@@ -1,0 +1,166 @@
+version: 2
+
+models:
+  - name: dim_users
+    description: Contains information about users of Greenery application
+    columns:
+      - name: user_guid
+        description: UUID for each unique user on platform
+        tests:
+          - not_null
+          - unique
+      - name: full_name
+        description: full name of the user
+        tests:
+          - not_null
+      - name: email
+        description: email address of the user
+        tests:
+          - not_null
+      - name: phone_number
+        description: phone number of the user
+        tests:
+          - not_null
+      - name: full_address
+        description: Full address of the user
+        tests:
+          - not_null
+      - name: created_at
+        description: timestamp the user was created
+        tests:
+          - not_null
+      - name: updated_at
+        description: timestamp the user was last updated
+
+  - name: fct_events
+    description: Events that happen on the platform
+    columns:
+      - name: event_guid
+        description: UUID of each unique event on the platform
+        tests:
+          - not_null
+          - unique
+      - name: session_guid
+        description: UUID of each browsing session on the platform which can contain many events
+        tests:
+          - not_null
+      - name: user_guid
+        description: UUID of the user that this event is associated with
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_users')
+              field: user_guid
+      - name: page_url
+        description: URL that the event happened on
+        tests:
+          - not_null
+      - name: created_at
+        description: Timestamp of the event
+      - name: event_type
+        description: Type of event
+        tests:
+          - not_null
+          - accepted_values:
+              values: ["add_to_cart", "checkout", "page_view","package_shipped"]
+      - name: order_guid
+        description: If the event is specific to an order (mostly used for checkout)
+        tests:
+          - not_null:
+              config:
+                where: "event_type IN ('checkout', 'package_shpped')"
+      - name: product_guid
+        description: If the event is specific to a product
+        tests:
+        - not_null:
+              config:
+                where: "event_type IN ('add_to_cart', 'page_view')"
+  
+  - name: fct_orders
+    description: Each order made by a customer
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+            combination_of_columns:
+              - order_guid
+              - product_guid 
+    columns:
+      - name: order_guid
+        description: UUID for each unique order on platform
+        tests:
+          - not_null
+      - name: full_name
+        description: full name of the user
+        tests:
+          - not_null
+      - name: contact_number
+        description: phone number of the user
+        tests:
+          - not_null
+      - name: email
+        description: email address of the user
+        tests:
+          - not_null
+      - name: shipping_address
+        description: Shipping address of the user
+        tests:
+          - not_null
+      - name: discount_applied_in_pct
+        description: Absolute dollar amount that is given off with the code
+      - name: product_guid
+        description: UUID for each unique product on platform
+        tests:
+          - not_null
+      - name: quantity
+        description: Number of units of the product in this order
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: " > 0"
+      - name: order_cost
+        description: Dollar about of the items in the order
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: " > 0"
+      - name: shipping_cost
+        description: Cost of shipping for the order
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: " > 0"
+      - name: order_total
+        description: Total cost of the order including shipping
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: " > 0"
+      - name: created_at
+        description: timestamp when the order was created
+        tests:
+          - not_null
+      - name: estimated_delivery_at
+        description: Estimated date of delivery
+      - name: delivered_at
+        description: Actual timestamp of delivery
+        tests:
+          - not_null:
+              config:
+                where: "order_status IN ('delivered')"
+      - name: shipping_service
+        description: Company that was used for shipping
+        tests:
+          - not_null:
+              config:
+                where: "order_status IN ('shipped', 'delivered')"
+      - name: tracking_guid
+        description: Tracking number for the order/package
+        tests:
+          - not_null:
+              config:
+                where: "order_status IN ('shipped', 'delivered')"
+      - name: order_status
+        description: Status of the order
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['preparing', 'shipped', 'delivered']

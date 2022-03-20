@@ -20,7 +20,7 @@ SELECT
     count(1) AS total_ordered,
     SUM(CASE WHEN order_status = 'delivered' THEN 1 ELSE 0 END) AS total_delivered,
     SUM(CASE WHEN order_status = 'preparing' THEN 1 ELSE 0 END) AS total_being_prepared,
-    SUM(CASE WHEN order_status = 'shipped' THEN 1 ELSE 0 END) AS total_being_shipped,
+    SUM(CASE WHEN order_status = 'shipped' THEN 1 ELSE 0 END) AS total_shipped,
     AVG(total_time_elapsed_hrs) AS average_time_for_delivery_hrs,
     AVG(order_cost) avg_order_cost
 FROM

@@ -1,0 +1,59 @@
+version: 2
+
+models:
+  - name: user_order_facts
+    description: contains order information at the user level
+    tests:
+      - dbt_utils.expression_is_true:
+          expression: " total_delivered + total_being_prepared + total_shipped = total_ordered "
+    columns:
+      - name: user_guid
+        description: UserId of the user that placed this order
+        tests:
+          - not_null
+      - name: full_name
+        description: full name of the user
+        tests:
+          - not_null
+      - name: email
+        description: email address of the user
+        tests:
+          - not_null
+      - name: phone_number
+        description: phone number of the user
+        tests:
+          - not_null
+      - name: full_address
+        description: Full address of the user
+        tests:
+          - not_null
+      - name: total_ordered
+        description: Total orders placed by the user
+        tests:
+          - dbt_utils.expression_is_true:
+              expression: " is NULL OR total_ordered > 0"
+      - name: total_delivered
+        description: Total delivered orders of the user
+        tests:
+          - dbt_utils.expression_is_true:
+              expression: " is NULL OR total_delivered >= 0"
+      - name: total_being_prepared
+        description: Total orders of the user that are being prepared 
+        tests:
+          - dbt_utils.expression_is_true:
+              expression: " is NULL OR total_being_prepared >= 0"
+      - name: total_shipped
+        description: Total orders of the user that are shipped 
+        tests:
+          - dbt_utils.expression_is_true:
+              expression: " is NULL OR total_shipped >= 0"
+      - name: average_time_for_delivery_hrs
+        description: Average time it takes for a order to be delivered for the user in hours
+        tests:
+          - dbt_utils.expression_is_true:
+              expression: " is NULL OR average_time_for_delivery_hrs > 0"
+      - name: avg_order_cost
+        description: Average order cost of the orders placed the user
+        tests:
+          - dbt_utils.expression_is_true:
+              expression: " is NULL OR avg_order_cost > 0"

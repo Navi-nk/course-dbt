@@ -21,7 +21,7 @@ SELECT
     ord_fct.total_ordered,
     ord_fct.total_delivered,
     ord_fct.total_being_prepared,
-    ord_fct.total_being_shipped,
+    ord_fct.total_shipped,
     ord_fct.average_time_for_delivery_hrs,
     ord_fct.avg_order_cost
 FROM

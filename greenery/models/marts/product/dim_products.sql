@@ -17,7 +17,7 @@ SELECT
     prod.name,
     prod.price AS unit_price,
     prod.inventory AS current_inventory,
-    prod_bght.total_product_bought
+    COALESCE(prod_bght.total_product_bought, 0) AS total_product_bought
 FROM 
     products prod 
 LEFT JOIN
