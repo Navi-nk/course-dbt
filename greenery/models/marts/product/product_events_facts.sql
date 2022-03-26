@@ -41,7 +41,7 @@ session_events_agg AS (
     SELECT
         *
     FROM
-        ( {{ session_dim_aggregate('events_enriched', 'product_guid') }} ) agg
+        ( {{ session_dim_aggregate(ref('fct_events'), 'event_type', 'events_enriched', 'product_guid') }} ) agg
 ),
 
 session_length AS (

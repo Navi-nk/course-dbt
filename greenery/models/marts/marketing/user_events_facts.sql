@@ -16,7 +16,7 @@ session_events_agg AS (
     SELECT
         *
     FROM
-        ( {{ session_dim_aggregate('events', 'user_guid') }} ) agg
+        ( {{ session_dim_aggregate(ref('fct_events') , 'event_type', 'events', 'user_guid') }} ) agg
 ),
 
 session_length AS (
