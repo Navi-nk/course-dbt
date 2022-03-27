@@ -46,7 +46,7 @@ Created `conversion_rate_details` model to get the answer. This model uses the `
 
 ### Part 2: Create a macro to simplify part of a model(s).
 
-- Answer: I created a macro in the `session_dim_aggregate.sql` file that identifies the event types and provides event_type counts for provided dim column(user/product).  Another macro is `grant_privilege.sql` that is used the post hooks to grant access to reporting role.
+- Answer: I created macro `session_dim_aggregate.sql` that identifies the event types and provides event_type counts for provided dim column(user/product), this is used in `product_events_facts` and `user_events_facts`.  Another macro is `grant_privilege.sql` that is used in the post hooks to grant access to reporting role.
 
 ### Part 3: Add a post hook to your project to apply grants to the role “reporting”.
 
@@ -54,7 +54,7 @@ Created `conversion_rate_details` model to get the answer. This model uses the `
 
 ### Part 4: Install a package (i.e. dbt-utils, dbt-expectations) and apply one or more of the macros to your project.
 
-- Answer: Yes used the dbt-expectations package to add tests, dbt-utils and codegen i had used in earlier weeks. 
+- Answer: Yes used the dbt-expectations package to add tests, dbt_utils and codegen I had used in earlier weeks. 
 
 ### Part 5: Show (using dbt docs and the model DAGs) how you have simplified or improved a DAG using macros and/or dbt packages.
 
