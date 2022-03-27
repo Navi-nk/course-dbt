@@ -57,3 +57,61 @@ models:
         tests:
           - dbt_utils.expression_is_true:
               expression: " is NULL OR avg_order_cost > 0"
+
+  - name: user_events_facts
+    description: Has user session metrics on different events
+    tests:
+      - dbt_utils.expression_is_true:
+          expression: "last_event_time >= first_event_time"
+    columns:
+      - name: session_guid
+        description: UUID of each browsing session on the platform which can contain many events
+        tests:
+          - not_null
+      - name: user_guid
+        description: UUID of the user that this event is associated with
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_users')
+              field: user_guid
+      - name: full_name
+        description: full name of the user
+        tests:
+          - not_null
+      - name: page_view
+        description: Number of page views in the session
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: " >= 0"
+      - name: add_to_cart
+        description: Number of add to cart actions in the session
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: " >= 0"
+      - name: package_shipped
+        description: Number of package shipped actions in the session
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: " >= 0"
+      - name: checkout
+        description: Number of checkout actions in the session
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: " >= 0"
+      - name: first_event_time
+        description: Session begin time
+        tests:
+          - not_null
+      - name: last_event_time
+        description: Session end time
+        tests:
+          - not_null
+      - name: total_time_elapsed_mins
+        description: Total time of the session
+        tests:
+          - not_null

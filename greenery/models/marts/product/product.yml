@@ -32,9 +32,9 @@ models:
           - not_null
           - dbt_utils.expression_is_true:
               expression: " >= 0"
-  
-  - name: fact_page_views
-    description: Has user session metrics on different events
+
+  - name: product_events_facts
+    description: Has product level session metrics on different events
     tests:
       - dbt_utils.expression_is_true:
           expression: "last_event_time >= first_event_time"
@@ -43,17 +43,13 @@ models:
         description: UUID of each browsing session on the platform which can contain many events
         tests:
           - not_null
-      - name: user_guid
-        description: UUID of the user that this event is associated with
+      - name: product_guid
+        description: UUID of the product that this event is associated with
         tests:
           - not_null
           - relationships:
-              to: ref('dim_users')
-              field: user_guid
-      - name: full_name
-        description: full name of the user
-        tests:
-          - not_null
+              to: ref('dim_products')
+              field: product_guid
       - name: page_view
         description: Number of page views in the session
         tests:
@@ -90,3 +86,26 @@ models:
         description: Total time of the session
         tests:
           - not_null
+
+  - name: conversion_rate_details
+    description: Has overall and product conversion rates
+    columns:
+      - name: product_name
+        description: Name of the product 
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_products')
+              field: name
+      - name: product_conversion_rate
+        description: Conversion rate of product
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: " >= 0"
+      - name: overall_conversion_rate
+        description: Overall conversion rate
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: " >= 0"
