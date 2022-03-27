@@ -54,26 +54,26 @@ models:
         description: Number of page views in the session
         tests:
           - not_null
-          - dbt_utils.expression_is_true:
-              expression: " >= 0"
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 0 
       - name: add_to_cart
         description: Number of add to cart actions in the session
         tests:
           - not_null
-          - dbt_utils.expression_is_true:
-              expression: " >= 0"
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 0 
       - name: package_shipped
         description: Number of package shipped actions in the session
         tests:
           - not_null
-          - dbt_utils.expression_is_true:
-              expression: " >= 0"
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 0 
       - name: checkout
         description: Number of checkout actions in the session
         tests:
           - not_null
-          - dbt_utils.expression_is_true:
-              expression: " >= 0"
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 0 
       - name: first_event_time
         description: Session begin time
         tests:
@@ -101,11 +101,13 @@ models:
         description: Conversion rate of product
         tests:
           - not_null
-          - dbt_utils.expression_is_true:
-              expression: " >= 0"
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 0  
+              max_value: 100
       - name: overall_conversion_rate
         description: Overall conversion rate
         tests:
           - not_null
-          - dbt_utils.expression_is_true:
-              expression: " >= 0"
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 0  
+              max_value: 100

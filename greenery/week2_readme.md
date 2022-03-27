@@ -1,4 +1,4 @@
-### Week 1 Assignment
+### Week 2 Assignment
 #### What is our user repeat rate?
 ```
 select 
