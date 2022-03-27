@@ -37,4 +37,12 @@ models:
     staging:
       +materialized: table
     marts:
-      +materialized: table
+      core:
+        +materialized: table
+      marketing:
+        +materialized: table
+      product:
+        +materialized: table
+
+on-run-end:
+  - "{{ grant_privilege(target.schema, 'reporting') }}"
