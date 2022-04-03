@@ -29,15 +29,12 @@ Result:
 939767ac-357a-4bec-91f8-a7b25edd46c9|0a1177bd-5a6d-421b-a13d-11617ef68143|ups|2021-02-19 10:15:26|shipped|2022-04-03 14:26:00.189633||
 
 ### Part 2: Modeling Challenge
-
-Q. How are users moving through the product funnel? Which steps in the funnel have the largest drop off points?
-
-A.
+ 
+How are users moving through the product funnel? Which steps in the funnel have the largest drop off points?
 
 ```
 select * from dbt_nkumar.product_funnel;
 ```
-
 Result:
 
 | total_sessions | add_to_cart_checkout_events | checkout_events | 
@@ -51,7 +48,6 @@ From this we can see:
 - The dropoff from a level 2 to level 3 is 22.7% (`1 - (checkout_event / add_to_cart_checkout_events)`).
 
 So, the largest dropoff point is at the last level where checkout happens.
-
 
 ### Part 3: Reflection Questions.
 
