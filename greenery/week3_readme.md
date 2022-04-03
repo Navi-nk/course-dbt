@@ -1,4 +1,4 @@
-### Week 2 Assignment
+### Week 3 Assignment
 
 #### Part 1: What is our overall conversion rate?
 ```

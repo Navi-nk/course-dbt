@@ -115,3 +115,13 @@ models:
         description: Total time of the session
         tests:
           - not_null
+  
+  - name: product_funnel
+    description: Details regarding product funnel 
+    columns:
+      - name: total_sessions
+        description: Total sessions
+      - name: add_to_cart_checkout_events
+        description: Total sessions with add to cart or checkout events
+      - name: checkout_events
+        description: Total sessions with checkout events

@@ -1,0 +1,14 @@
+version: 2
+
+exposures:
+  
+  - name: product_funnel
+    type: dashboard
+    description: Product funnel details
+    
+    depends_on:
+      - ref('product_funnel')
+      
+    owner:
+      name: Data Team
+      email: askData@greenery.com
