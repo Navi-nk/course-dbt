@@ -53,7 +53,7 @@ So, the largest dropoff point is at the last level where checkout happens.
 
 #### 3A. DBT Next steps.
 
-We started using DBT last year and it has been a great decision for our organisation, we use snowflake for our datalake and DBT works seemlessly with it. The main objective for me to take this course was to get to know some best practices followed by other organisations and implement the ones that seem fit for us. The project sessions and various firechats have been useful in that aspect. I am a Data Engineer and I like buiding data centric applications so not keen on being a Analytical engineer. DBT is another tool that I wanted to learn to enhance my skills and this course has been very useful.
+We started using DBT last year and it has been a great decision for our organisation, we use snowflake for our datalake and DBT works seamlessly with it. The main objective for me to take this course was to get to know some best practices followed by other organisations and implement the ones that seem fit for us. The various project and firechats sessions have been useful in that aspect. I am a Data Engineer and I like buiding data centric applications so not keen on being a Analytical engineer. DBT is another tool that I wanted to learn to enhance my skills and this course has been very useful.
 
 #### 3B. Setting up for production / scheduled dbt run of your project
 
